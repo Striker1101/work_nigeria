@@ -2,14 +2,11 @@ import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-
 // tells next to prerender jobs
 export async function getStaticProps(context: any) {
   const id = context.params.job;
-  console.log(id);
-  const req = await fetch("https://jsonplaceholder.typicode.com/users" + id);
+  const req = await fetch("https://jsonplaceholder.typicode.com/users/" + id);
   const data = await req.json();
-
   return {
     props: { data },
   };
@@ -21,7 +18,7 @@ export async function getStaticPaths() {
 
   const paths = data.map((item: any) => {
     return { params: { job: item.id.toString() } };
-  });
+  }); 
 
   return {
     paths,
@@ -30,16 +27,16 @@ export async function getStaticPaths() {
 }
 
 export default function Job({ data }: any) {
-    return (
-      <>
-        <Head>
-          <title></title>
-        </Head>
-        <div>
-          <p> {data.name}</p>
-          <p>{data.email}</p>
-          <p>{data.website}</p>
-        </div>
-      </>
-    );
-  }
+  return (
+    <>
+      <Head>
+        <title></title>
+      </Head>
+      <div>
+        <p>{data.name}</p>
+        <p>{data.email}</p>
+        <p>{data.website}</p>
+      </div>
+    </>
+  );
+}
