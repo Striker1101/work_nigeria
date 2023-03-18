@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       name: {
         type: Sequelize.STRING,
@@ -27,7 +27,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       firstName: {
         type: Sequelize.STRING,
@@ -66,7 +66,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       companyName: {
         type: Sequelize.STRING,
@@ -93,7 +93,7 @@ module.exports = {
         allowNull: false,
       },
       poster_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
         references: {
           model: "user",
@@ -117,16 +117,20 @@ module.exports = {
         allowNull: false,
       },
       genre_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
         references: {
           model: "genre",
           key: "id",
         },
       },
-      additionalQuestion: {
-        type: Sequelize.ARRAY(Sequelize.JSON), // define the column as an array of JSON objects
+      additionalQuestion_id: {
+        type: Sequelize.STRING,
         allowNull: true,
+        references: {
+          model: "additionalQuestion",
+          key: "id",
+        },
       },
       createdAt: {
         allowNull: false,
@@ -137,6 +141,26 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+    });
+
+    await queryInterface.createTable("additionalQuestion", {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.STRING,
+      },
+      question: {
+        type: Sequelize.JSON, // define the column as an array of JSON objects
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
       },
     });
   },

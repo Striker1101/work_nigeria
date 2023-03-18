@@ -1,51 +1,34 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
-import User from "../../../../sequelize/models/user";
-const { body, validationResult } = require("express-validator");
-import "../../../../passports";
+import User from "@/sequelize/models/user";
 const bcrypt = require("bcryptjs");
-const passport = require("passport");
-// const { uploadToCloudinary, removeFromCloudinary } = require("./cloudinary");
-//jwt stuff
-const jwt = require("jsonwebtoken");
-
+import validate from "next-api-validation";
+import { v4 as uuidv4 } from "uuid";
+import { userValidationRules, validateRequest } from "@/validator/sign_up";
 type User = {};
 
-module.exports.sign_up = [
-  body("email", "username must be specified")
-    .trim()
-    .isLength({ min: 1 })
-    .escape(),
-  body("password", "password must be more than 4 words")
-    .isLength({ min: 4 })
-    .escape(),
-
-  async function (req: NextApiRequest, res: NextApiResponse<User>) {
-    if (req.method === "POST") {
+export default validate({
+  post: async (req, res) => {
+    await userValidationRules().map((validation) => validation.run(req));
+    await validateRequest(req, res, async () => {
+      const { password, email, firstName, lastName } = req.body;
       let salt = bcrypt.genSaltSync(10);
-      let hash = bcrypt.hashSync(req.body.password, salt);
+      let hash = bcrypt.hashSync(password, salt);
       // otherwise, store hashedPassword in DB
-      // const data = await uploadToCloudinary(req.file.path, "club_house");
-      const user = new User({
-        email: req.body.email,
+
+      //sucess
+      //save data to postgres
+      const user = await User.create({
+        id: parseInt(uuidv4()),
+        email,
         password: hash,
         role: "subscriber",
+        firstName,
+        lastName,
         // imageUrl: data.url,
         // publicId: data.public_id,
       });
-      // Extract the validation errors from a request.
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        res.json({
-          user: user,
-          errors: errors.array(),
-        });
-        return;
-      }
-      //sucess
-      //save data to postgres
-    }
-  },
-];
+      console.log(typeof uuidv4());
 
-export {};
+      res.status(200).json({ message: "success" });
+    });
+  },
+});

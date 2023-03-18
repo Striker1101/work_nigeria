@@ -24,8 +24,8 @@ const initUser = (sequelize: any, DataTypes: any) => {
       sequelize,
       modelName: "User",
       tableName: "user",
-      createdAt: "created_at",
-      updatedAt: "updated_at",
+      createdAt: "createdAt",
+      updatedAt: "updatedAt",
     }
   );
   return User;

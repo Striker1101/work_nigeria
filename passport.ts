@@ -1,25 +1,23 @@
-const LocalStrategy = require("passport-local").Strategy;
-const passport = require("passport");
-const passportJWT = require("passport-jwt");
-const JWTStrategy = passportJWT.Strategy;
-const ExtractJWT = passportJWT.ExtractJwt;
-const User = require("./sequelize/models/user");
-const bcrypt = require("bcryptjs");
+import { Strategy as LocalStrategy } from "passport-local";
+import passport from "passport";
+import { Strategy, ExtractJwt } from "passport-jwt";
+const JWTStrategy = Strategy;
+const ExtractJWT = ExtractJwt;
+import User from "./sequelize/models/user";
+import { compare } from "bcryptjs";
 passport.use(
   new LocalStrategy(
     {
       usernameField: "email",
       passwordField: "password",
     },
-    function (email, password, cb) {
-      User.findOne({ email: email }, (err, user) => {
-        if (err) {
-          return cb(err);
-        }
+    async function (email, password, cb) {
+      const user = await User.findOne({ where: { email: email } });
+      try {
         if (!user) {
           return cb(null, false, { message: "Incorrect username" });
         }
-        bcrypt.compare(password, user.password, (err, res) => {
+        compare(password, user.password, (err, res) => {
           if (res) {
             // passwords match! log user in
             // passwords match! log user in
@@ -29,7 +27,11 @@ passport.use(
             return cb(null, false, { message: "Incorrect password" });
           }
         });
-      });
+      } catch (err) {
+        if (err) {
+          return cb(err);
+        }
+      }
     }
   )
 );
@@ -42,7 +44,7 @@ passport.use(
     },
     function (jwtPayload, cb) {
       //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
-      return User.findOneById(jwtPayload.id)
+      return User.findByPk(jwtPayload.id)
         .then((user) => {
           return cb(null, user);
         })

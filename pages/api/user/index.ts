@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import User from "../../sequelize/models/user";
+import User from "../../../sequelize/models/user";
 type User = {};
 
 export default async function userAuth(
