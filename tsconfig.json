@@ -18,6 +18,11 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "sequelize/config/config.mts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "sequelize/config/config.js"
+  ],
   "exclude": ["node_modules"]
 }

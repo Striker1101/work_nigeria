@@ -2,13 +2,34 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 function Test() {
-  const [user, setUser] = useState<Array<never>>([]);
+  const [user, setUser] = useState<Array<any>>([]);
   useEffect(() => {
-    axios.get("/api/users").then(({ data }) => {
-      setUser(data.user);
-    });
+    axios
+      .post("/api/user/login",
+      {
+        email:"goodluck"
+      })
+      .then(({ data }) => {
+        setUser(data);
+      })
+      .catch((error) => {
+        let message;
+        if (error.response) {
+          message = error.response.data.message;
+        } else {
+          message = error.message;
+        }
+        console.log(message);
+      });
   }, []);
-  return <div></div>;
+
+  return (
+    <div>
+      {user.map((item) => {
+        return <>{item.firstName}</>;
+      })}
+    </div>
+  );
 }
 
 export default Test;
