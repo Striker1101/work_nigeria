@@ -1,11 +1,38 @@
 import Layout from "@/comps/Layout";
-import "@/styles/globals.css";
+import * as React from "react";
 import type { AppProps } from "next/app";
+import { CacheProvider, EmotionCache } from "@emotion/react";
+import { ThemeProvider, CssBaseline, createTheme } from "@mui/material";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  );
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+
+import createEmotionCache from "@/utils/createEmotionCache";
+import lightThemeOptions from "@/utils/Theme";
+import "../styles/globals.css";
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
 }
+
+const clientSideEmotionCache = createEmotionCache();
+
+const lightTheme = createTheme(lightThemeOptions);
+
+const MyApp: React.FunctionComponent<MyAppProps> = (props) => {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+
+  return (
+    <CacheProvider value={emotionCache}>
+      <ThemeProvider theme={lightTheme}>
+        <CssBaseline />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
+    </CacheProvider>
+  );
+};
+
+export default MyApp;

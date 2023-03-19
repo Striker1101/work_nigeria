@@ -1,0 +1,29 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+}
+.input {
+  width: 100%;
+  height: 30px;
+  border: transparent;
+}
+.input:hover {
+  border-left: 3px solid blue;
+}
+
+.button {
+  background-color: white;
+  padding: 10px;
+  border: 2px solid black;
+  box-shadow: 2px 4px 5px 2px;
+  transition: transform ease-in-out;
+  border-radius: 30px;
+}
+
+.button:hover {
+  transform: scale(0.9);
+}
