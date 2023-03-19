@@ -3,7 +3,10 @@ import { ThemeOptions } from "@mui/material/styles";
 const theme: ThemeOptions = {
   palette: {
     primary: {
-      main: "#fcba03",
+      main: "black",
+      contrastText: "white",
+      dark: "black",
+      light:"white"
     },
   },
 };

@@ -5,6 +5,7 @@ import styles from "@/styles/Footer.module.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+
 export default function Home() {
   return (
     <>

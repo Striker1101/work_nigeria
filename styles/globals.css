@@ -104,7 +104,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px;
+  margin: 2px;
 }
 nav > ul {
   text-decoration: none;
@@ -113,16 +113,16 @@ nav > ul {
   gap: 20px;
 }
 
-nav > ul > li:hover {
+nav > ul > a > li:hover {
   border-radius: 20px;
-  padding: 10px;
+  padding: 5px;
   border: green dashed 2px;
 }
 main {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 20px;
   flex-direction: column;
   gap: 20px;
 }
