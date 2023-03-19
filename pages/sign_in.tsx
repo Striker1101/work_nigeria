@@ -1,16 +1,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-function Test() {
-  const [user, setUser] = useState<Array<any>>([]);
+function SignIn() {
+  const [data, setData] = useState<Array<any>>([]);
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
   useEffect(() => {
     axios
-      .post("/api/user/login",
-      {
-        email:"goodluck"
+      .post("/api/user/sign_up", {
+        form,
       })
       .then(({ data }) => {
-        setUser(data);
+        setData(data);
       })
       .catch((error) => {
         let message;
@@ -23,13 +28,7 @@ function Test() {
       });
   }, []);
 
-  return (
-    <div>
-      {user.map((item) => {
-        return <>{item.firstName}</>;
-      })}
-    </div>
-  );
+  return <div></div>;
 }
 
-export default Test;
+export default SignIn;
