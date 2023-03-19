@@ -1,12 +1,14 @@
 import { body, validationResult } from "express-validator";
 
-export const validateRequest = (req, res, next) => {
+export const validateRequest = (req: any, res: any, next: any) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();
   }
   const extractedErrors: Array<never> = [];
-  errors.array().map((err) => extractedErrors.push({ [err.param]: err.msg }));
+  errors
+    .array()
+    .map((err: any) => extractedErrors.push({ [err.param]: err.msg }));
 
   return res.status(422).json({
     errors: extractedErrors,

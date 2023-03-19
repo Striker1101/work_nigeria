@@ -1,10 +1,10 @@
-import User from "@/sequelize/models/user";
+const db = require("@/sequelize");
 const bcrypt = require("bcryptjs");
 import validate from "next-api-validation";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import { userValidationRules, validateRequest } from "@/validator/sign_up";
-type User = {};
 
+const User = db.user;
 export default validate({
   post: async (req, res) => {
     await userValidationRules().map((validation) => validation.run(req));
@@ -17,16 +17,14 @@ export default validate({
       //sucess
       //save data to postgres
       const user = await User.create({
-        id: parseInt(uuidv4()),
         email,
         password: hash,
         role: "subscriber",
         firstName,
         lastName,
-        // imageUrl: data.url,
-        // publicId: data.public_id,
+        imageUrl: "data.url",
+        publicId: "data.public_id",
       });
-      console.log(typeof uuidv4());
 
       res.status(200).json({ message: "success" });
     });

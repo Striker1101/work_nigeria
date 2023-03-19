@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   development: {
     username: "postgres",
     password: "YOUNGSWAG",
@@ -36,3 +36,4 @@ module.exports = {
     // }
   },
 };
+module.exports = config;

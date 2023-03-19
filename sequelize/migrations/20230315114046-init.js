@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       name: {
         type: Sequelize.STRING,
@@ -27,7 +27,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       firstName: {
         type: Sequelize.STRING,
@@ -42,7 +42,7 @@ module.exports = {
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       role: {
         type: Sequelize.STRING,
@@ -50,6 +50,14 @@ module.exports = {
           isIn: [["user", "admin", "worker"]],
         },
         defaultValue: "user",
+      },
+      imageUrl: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      publicId: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,
@@ -61,12 +69,12 @@ module.exports = {
       },
     });
 
-    await queryInterface.createTable("job_post", {
+    await queryInterface.createTable("job", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       companyName: {
         type: Sequelize.STRING,
@@ -80,7 +88,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      postion: {
+      position: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -93,7 +101,7 @@ module.exports = {
         allowNull: false,
       },
       poster_id: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: "user",
@@ -117,18 +125,10 @@ module.exports = {
         allowNull: false,
       },
       genre_id: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: "genre",
-          key: "id",
-        },
-      },
-      additionalQuestion_id: {
-        type: Sequelize.STRING,
-        allowNull: true,
-        references: {
-          model: "additionalQuestion",
           key: "id",
         },
       },
@@ -149,10 +149,13 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       question: {
         type: Sequelize.JSON, // define the column as an array of JSON objects
+      },
+      job_id: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

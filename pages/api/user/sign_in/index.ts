@@ -1,20 +1,14 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
-import User from "../../../../sequelize/models/user";
-const { body, validationResult } = require("express-validator");
-import "../../../../passports";
+const db = require("@/sequelize");
 const bcrypt = require("bcryptjs");
+import validate from "next-api-validation";
 const passport = require("passport");
-// const { uploadToCloudinary, removeFromCloudinary } = require("./cloudinary");
-//jwt stuff
 const jwt = require("jsonwebtoken");
+import "@/passports";
 
-type User = {};
-
-module.exports.sign_in =
-  ("/login",
-  function (req: NextApiRequest, res: NextApiResponse<User>) {
-    if (req.method === "POST") {
+const User = db.user;
+export default validate({
+  post: async (req, res) => {
+    "/login",
       passport.authenticate("local", { session: false }, (err, user, info) => {
         if (err || !user) {
           return res.status(400).json({
@@ -23,7 +17,6 @@ module.exports.sign_in =
             info,
           });
         }
-
         req.login(user, { session: false }, (err) => {
           if (err) {
             res.send(err);
@@ -37,7 +30,5 @@ module.exports.sign_in =
           return res.json({ user, token });
         });
       })(req, res);
-    }
-  });
-
-export {};
+  },
+});
