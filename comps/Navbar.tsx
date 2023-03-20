@@ -1,16 +1,9 @@
 import React, { useEffect } from "react";
-import { styled } from "@mui/system";
+import { NavStyled, LinkStyled } from "./styles/Nav";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import custom from "@/styles/Custom.module.css";
 import Content from "./Content";
-
-const Nav = styled("nav")(({ theme }) => ({
-  color: theme.palette.primary.contrastText,
-  backgroundColor: theme.palette.primary.main,
-  padding: theme.spacing(1),
-  borderRadius: theme.shape.borderRadius,
-}));
 
 function Navbar() {
   var token: any = "";
@@ -22,21 +15,21 @@ function Navbar() {
   }
   const collector = useSelector((state: any) => state.lists);
   return (
-    <Nav>
+    <NavStyled>
       <div>
         <h1>logo</h1>
       </div>
       <ul>
         <Link href={"/"}>
-          <li>Home</li>
+          <LinkStyled>Home</LinkStyled>
         </Link>
 
         <Link href={"/jobs"}>
-          <li>Job</li>
+          <LinkStyled>Job</LinkStyled>
         </Link>
 
         <Link href={"/sign_up"}>
-          <li>Sign up</li>
+          <LinkStyled>Sign up</LinkStyled>
         </Link>
         {collector.logged || token !== "" ? (
           <div
@@ -44,7 +37,7 @@ function Navbar() {
               display: "flex",
               gap: "10px",
               position: "relative",
-              bottom: "4px",
+              bottom: "2px",
               alignItems: "center",
               justifyContent: "center",
             }}
@@ -58,11 +51,11 @@ function Navbar() {
           </div>
         ) : (
           <Link href={"/sign_in"}>
-            <li>Sign in</li>
+            <LinkStyled>Sign in</LinkStyled>
           </Link>
         )}
       </ul>
-    </Nav>
+    </NavStyled>
   );
 }
 
