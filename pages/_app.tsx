@@ -12,7 +12,9 @@ import "@fontsource/roboto/700.css";
 import createEmotionCache from "@/utils/createEmotionCache";
 import lightThemeOptions from "@/utils/Theme";
 import "../styles/globals.css";
-
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import allReducers from "@/redux/reducer";
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
 }
@@ -20,6 +22,11 @@ interface MyAppProps extends AppProps {
 const clientSideEmotionCache = createEmotionCache();
 
 const lightTheme = createTheme(lightThemeOptions);
+
+const store = configureStore(
+  { reducer: allReducers },
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const MyApp: React.FunctionComponent<MyAppProps> = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
@@ -29,7 +36,9 @@ const MyApp: React.FunctionComponent<MyAppProps> = (props) => {
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <Layout>
-          <Component {...pageProps} />
+          <Provider store={store}>
+            <Component {...pageProps} />
+          </Provider>
         </Layout>
       </ThemeProvider>
     </CacheProvider>
