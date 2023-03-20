@@ -25,7 +25,7 @@ const Lists = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase("LOGGED", (state, action: AnyAction) => {
-      state.loading = action.payload;
+      state.logged = action.payload;
     });
   },
 });

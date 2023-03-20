@@ -20,6 +20,7 @@ export default validate({
         email,
         password: hash,
         role: "subscriber",
+        verify: false,
         firstName,
         lastName,
         imageUrl: "data.url",

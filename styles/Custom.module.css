@@ -27,3 +27,12 @@
 .button:hover {
   transform: scale(0.9);
 }
+
+.navBTN {
+  background: transparent;
+  color: white;
+  font-weight: 300;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: transparent;
+}

@@ -1,9 +1,11 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import custom from "@/styles/Custom.module.css";
 import Box from "@mui/material/Box";
 import * as React from "react";
-
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { logged } from "@/redux/action";
 function SignIn() {
   const [form, setForm] = useState({
     email: "",
@@ -16,19 +18,8 @@ function SignIn() {
     bg: "primary.main",
     color: "primary.contrastText",
   });
-  useEffect(() => {
-    btn.current?.addEventListener("submit", (e) => {
-      e.preventDefault();
-      console.log(form);
-      if (form.password !== "") {
-        handleSubmit();
-      } else {
-        console.log("here");
-        setMessage("please make sure you fill usernmae and password fields");
-        logMessage("warning.contrastText", "warning.main");
-      }
-    });
-  }, []);
+  const access = useDispatch();
+  const router = useRouter();
 
   function handleForm(event: any) {
     const target = event.target;
@@ -53,32 +44,47 @@ function SignIn() {
   }
 
   function handleSubmit() {
-    console.log("in");
-    const formData = new FormData();
-    formData.append("email", form.email);
-    formData.append("password", form.password);
-
     axios
-      .post("/api/user/sign_in", {
-        formData,
-      })
+      .post(
+        "/api/user/sign_in",
+        {
+          email: form.email,
+          password: form.password,
+        },
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          withCredentials: true,
+        }
+      )
       .then(({ data }) => {
-        console.log(data);
-        setMessage(data);
+        setMessage(data.message);
         logMessage("success.contrastText", "success.main");
+        //user has logged in
+        access(logged(true));
+        // setter
+        localStorage.setItem("token", data.token);
+        router.push("/jobs");
       })
       .catch((error) => {
-        console.log(error);
-        setMessage("user already resgistered");
-        logMessage("warning.contrastText", "error.main");
-        console.log(data);
+        setMessage(JSON.parse(error.request.response).info);
+        logMessage("error.contrastText", "error.main");
       });
+  }
+  function handlePost(e: any) {
+    e.preventDefault();
+    console.log(form);
+    if (form.password !== "" && form.email !== "") {
+      handleSubmit();
+    } else {
+      setMessage("please make sure you fill username and password fields");
+      logMessage("warning.contrastText", "warning.main");
+    }
   }
 
   return (
     <main>
       <h2>Input your Details to Login</h2>
-      <form ref={btn} className={custom.form}>
+      <form ref={btn} onSubmit={handlePost} className={custom.form}>
         <label htmlFor="email">
           Email
           <input

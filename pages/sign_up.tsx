@@ -19,19 +19,6 @@ function SignUp() {
     bg: "primary.main",
     color: "primary.contrastText",
   });
-  useEffect(() => {
-    btn.current?.addEventListener("submit", (e) => {
-      e.preventDefault();
-      console.log(form);
-      if (form.password === form.cpassword && form.password !== "") {
-        handleSubmit();
-      } else {
-        console.log("here");
-        setMessage("please make sure both password are correct");
-        logMessage("warning.contrastText", "warning.main");
-      }
-    });
-  }, []);
 
   function handleForm(event: any) {
     const target = event.target;
@@ -56,16 +43,12 @@ function SignUp() {
   }
 
   function handleSubmit() {
-    console.log("in");
-    const formData = new FormData();
-    formData.append("firstName", form.firstName);
-    formData.append("lastName", form.lastName);
-    formData.append("email", form.email);
-    formData.append("password", form.password);
-
     axios
       .post("/api/user/sign_up", {
-        formData,
+        firstName: form.firstName,
+        lastName: form.lastName,
+        email: form.email,
+        password: form.password,
       })
       .then(({ data }) => {
         console.log(data);
@@ -80,10 +63,20 @@ function SignUp() {
       });
   }
 
+  function handlePost() {
+    e.preventDefault();
+    if (form.password === form.cpassword && form.password !== "") {
+      handleSubmit();
+    } else {
+      setMessage("please make sure both password are correct");
+      logMessage("warning.contrastText", "warning.main");
+    }
+  }
+
   return (
     <main>
       <h2>Fill the Below Form </h2>
-      <form ref={btn} className={custom.form}>
+      <form onSubmit={handlePost} ref={btn} className={custom.form}>
         <label htmlFor="firstName">
           FirstName
           <input

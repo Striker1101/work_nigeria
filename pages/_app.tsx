@@ -23,10 +23,7 @@ const clientSideEmotionCache = createEmotionCache();
 
 const lightTheme = createTheme(lightThemeOptions);
 
-const store = configureStore(
-  { reducer: allReducers },
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const store = configureStore({ reducer: allReducers });
 
 const MyApp: React.FunctionComponent<MyAppProps> = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
@@ -35,11 +32,11 @@ const MyApp: React.FunctionComponent<MyAppProps> = (props) => {
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
-        <Layout>
-          <Provider store={store}>
+        <Provider store={store}>
+          <Layout>
             <Component {...pageProps} />
-          </Provider>
-        </Layout>
+          </Layout>
+        </Provider>
       </ThemeProvider>
     </CacheProvider>
   );

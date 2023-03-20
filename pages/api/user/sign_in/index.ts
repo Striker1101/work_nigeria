@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 import validate from "next-api-validation";
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-import { passwordVerify, jwtShare } from "@/passport";
+import { passwordVerify, jwtShare } from "@/utils/passport";
 
 const User = db.user;
 export default validate({
@@ -16,9 +16,11 @@ export default validate({
       (err: any, user: any, info: any) => {
         if (err || !user) {
           return res.status(400).json({
-            message: "Something is not right",
-            user: user,
-            info,
+            info: info.message,
+            user: {
+              email: req.body.email,
+              password: req.body.password,
+            },
           });
         }
         req.login(user, { session: false }, (err: any) => {
@@ -31,7 +33,10 @@ export default validate({
           opts.expiresIn = 120;
           //add opts to token to add a experiation time
           const token = jwt.sign({ user }, "your_jwt_secret");
-          return res.json({ user, token });
+          return res.json({
+            message: `successfully signed in ${user.firstName}`,
+            token,
+          });
         });
       }
     )(req, res);

@@ -51,6 +51,11 @@ module.exports = {
         },
         defaultValue: "user",
       },
+      verify: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
       imageUrl: {
         type: Sequelize.STRING,
         allowNull: true,

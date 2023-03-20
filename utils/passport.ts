@@ -3,7 +3,7 @@ import passport from "passport";
 import { Strategy, ExtractJwt } from "passport-jwt";
 const JWTStrategy = Strategy;
 const ExtractJWT = ExtractJwt;
-const db = require("./sequelize");
+const db = require("@/sequelize");
 import { compare } from "bcryptjs";
 
 const User = db.user;
@@ -18,11 +18,10 @@ export const passwordVerify = () => {
         const user = await User.findOne({ where: { email: email } });
         try {
           if (!user) {
-            return cb(null, false, { message: "Incorrect username" });
+            return cb(null, false, { message: `Incorrect username` });
           }
           compare(password, user.password, (err, res) => {
             if (res) {
-              // passwords match! log user in
               // passwords match! log user in
               return cb(null, user, { message: "Logged In Successfully" });
             } else {
@@ -50,10 +49,10 @@ export const jwtShare = () => {
       function (jwtPayload, cb) {
         //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
         return User.findByPk(jwtPayload.id)
-          .then((user) => {
+          .then((user: any) => {
             return cb(null, user);
           })
-          .catch((err) => {
+          .catch((err: any) => {
             return cb(err);
           });
       }
