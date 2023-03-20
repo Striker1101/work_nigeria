@@ -1,0 +1,83 @@
+.formJob {
+  width: 100%;
+  padding: 2px;
+}
+.formJob > div {
+  padding: 10px;
+}
+.formJob > div > label {
+  width: 100%;
+  position: relative;
+}
+.iconJob {
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+}
+
+.formJob > div > input,
+.formJob > div > label > input {
+  width: 100%;
+  margin: 5px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: larger;
+  padding: 10px;
+}
+
+.hire {
+  text-decoration: underline;
+  font-size: large;
+  color: blue;
+  background-color: transparent;
+  border: transparent;
+  cursor: pointer;
+}
+
+.jobsContianer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.jobsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 40px;
+}
+
+.jobsHeader > button {
+  background-color: transparent;
+  border: transparent;
+}
+
+.jobsPost {
+  height: 200px;
+  width: 200px;
+  border: 2px solid red;
+}
+
+.jobsDesc {
+  height: 200px;
+  border: 2px solid red;
+  width: 200px;
+}
+
+.content {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+@media (min-width: 900px) {
+  .formJob > div > input {
+    width: 100px;
+  }
+}
+@media (max-width: 900px) {
+  .jobsDesc {
+    display: none;
+  }
+}
