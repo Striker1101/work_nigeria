@@ -3,7 +3,7 @@ import { styled } from "@mui/system";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import custom from "@/styles/Custom.module.css";
-import Person3Icon from "@mui/icons-material/Person3";
+import Content from "./Content";
 
 const Nav = styled("nav")(({ theme }) => ({
   color: theme.palette.primary.contrastText,
@@ -13,6 +13,13 @@ const Nav = styled("nav")(({ theme }) => ({
 }));
 
 function Navbar() {
+  var token: any = "";
+  if (typeof window !== "undefined") {
+    token = localStorage.getItem("token");
+  }
+  function handleLogout() {
+    console.log("off");
+  }
   const collector = useSelector((state: any) => state.lists);
   return (
     <Nav>
@@ -31,13 +38,24 @@ function Navbar() {
         <Link href={"/sign_up"}>
           <li>Sign up</li>
         </Link>
-        {collector.logged || localStorage.getItem("token") !== "" ? (
-          <>
-            <button className={custom.navBTN}>Sign Out</button>
+        {collector.logged || token !== "" ? (
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              position: "relative",
+              bottom: "4px",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <button onClick={handleLogout} className={custom.navBTN}>
+              Sign Out
+            </button>
             <li>
-              <Person3Icon />
+              <Content />
             </li>
-          </>
+          </div>
         ) : (
           <Link href={"/sign_in"}>
             <li>Sign in</li>
