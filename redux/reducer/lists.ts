@@ -5,6 +5,7 @@ interface MyData {
   logged: boolean;
   lists: any;
   error: string;
+  nav: boolean;
 }
 
 // interface obj {
@@ -17,6 +18,7 @@ const initialState: MyData = {
   lists: {},
   error: "",
   logged: false,
+  nav: false,
 };
 
 const Lists = createSlice({
@@ -26,6 +28,9 @@ const Lists = createSlice({
   extraReducers: (builder) => {
     builder.addCase("LOGGED", (state, action: AnyAction) => {
       state.logged = action.payload;
+    });
+    builder.addCase("NAV", (state, action: AnyAction) => {
+      state.nav = action.payload;
     });
   },
 });

@@ -1,6 +1,6 @@
 import { styled } from "@mui/system";
 
-export const Flex = styled("div")(({ sx, dir, theme }: any) => ({
+export const Flex = styled("div")(({ mobile, dir, theme }: any) => ({
   display: "flex",
   flexDirection: dir,
   alignContent: "center",
@@ -13,10 +13,10 @@ export const Flex = styled("div")(({ sx, dir, theme }: any) => ({
   },
   [theme.breakpoints.up("md")]: {
     backgroundColor: "yellow",
-    flexDirection: sx,
+    flexDirection: mobile,
   },
   [theme.breakpoints.up("lg")]: {
     backgroundColor: " green",
-    flexDirection: sx,
+    flexDirection: mobile,
   },
 }));

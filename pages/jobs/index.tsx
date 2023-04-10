@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SearchIcon from "@mui/icons-material/Search";
 import { Flex } from "@/comps/styles/Global";
 import job from "@/styles/Job.module.css";
 import Head from "next/head";
+import { HideNav } from "@/utils/data";
+import DisplayDescription from "@/comps/DisplayDescription.tsx";
+import DisplayJobs from "@/comps/DisplayJobs";
 export const getStaticProps = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const data = await res.json();
@@ -16,6 +19,8 @@ export const getStaticProps = async () => {
 function handleHire() {}
 //  Todo: cache placeholder country valur
 function Jobs({ data }: any) {
+  HideNav(false);
+  const [postIndex, setPostIndex] = useState(-1);
   return (
     <div>
       <Head>
@@ -26,7 +31,7 @@ function Jobs({ data }: any) {
       </Head>
       <main>
         <form className={job.formJob}>
-          <Flex dir="column" sx="row">
+          <Flex dir="column" mobile="row">
             <label htmlFor="job">
               <input
                 placeholder="job title, keywords, or company"
@@ -67,10 +72,12 @@ function Jobs({ data }: any) {
             </button>
           </div>
           <div className={job.content}>
-            <div className={job.jobsPost}>
-              <DisplayJobs />
-            </div>
-            <div className={job.jobsDesc}></div>
+              <DisplayJobs data={data} setIndex={setPostIndex} />
+              <DisplayDescription data={data}  postIndex={postIndex} />
+
+          </div>
+          <div className={job.nav}>
+
           </div>
         </div>
       </main>

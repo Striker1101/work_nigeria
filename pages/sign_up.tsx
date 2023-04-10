@@ -3,8 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import custom from "@/styles/Custom.module.css";
 import Box from "@mui/material/Box";
 import * as React from "react";
-
+import { HideNav } from "@/utils/data";
 function SignUp() {
+  HideNav(true);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",

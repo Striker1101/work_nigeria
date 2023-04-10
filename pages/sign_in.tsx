@@ -6,7 +6,9 @@ import * as React from "react";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { logged } from "@/redux/action";
+import { HideNav } from "@/utils/data";
 function SignIn() {
+  HideNav(true);
   const [form, setForm] = useState({
     email: "",
     password: "",
