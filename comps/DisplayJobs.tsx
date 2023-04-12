@@ -39,11 +39,11 @@ function DisplayJobs({ data, setIndex }: Props) {
     }
   };
   return (
-    <div className={job.jobsPosts}>
+    <div className={job.Posts}>
       {data.map((item: any, index: number) => {
         return (
           <div
-            className={job.jobsPost}
+            className={job.Post}
             data-index={item.id}
             key={item.id}
             onClick={handleClick}

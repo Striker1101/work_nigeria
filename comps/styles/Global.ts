@@ -1,6 +1,11 @@
 import { styled } from "@mui/system";
 
-export const Flex = styled("div")(({ mobile, dir, theme }: any) => ({
+interface FlexProps {
+  mobile: string;
+  dir: string;
+}
+
+export const Flex = styled("div")<FlexProps>(({ mobile, dir, theme }: any) => ({
   display: "flex",
   flexDirection: dir,
   alignContent: "center",
