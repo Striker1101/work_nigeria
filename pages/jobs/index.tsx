@@ -162,9 +162,8 @@ function Jobs({ data }: any) {
           </div>
           <div className={job.content}>
             <div>
-              {/* Render translated components */}
-              {t("jobsDescription", { data, setPostIndex })}
-              {t("description", { data, postIndex })}
+              <DisplayJobs data={data} setIndex={setPostIndex} />
+              <DisplayDescription data={data} postIndex={postIndex} />
             </div>
           </div>
           <div className={job.nav}>

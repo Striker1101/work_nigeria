@@ -4,9 +4,12 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import custom from "@/styles/Custom.module.css";
 import Content from "./Content";
+import Translate from "./Translate";
+import { useRouter } from "next/router";
 
 function Navbar() {
   var token: any = "";
+  const { locale } = useRouter();
   if (typeof window !== "undefined") {
     token = localStorage.getItem("token");
   }
@@ -24,7 +27,7 @@ function Navbar() {
             <h1>logo</h1>
           </div>
           <ul>
-            <Link href={"/"}>
+            <Link href={"/"} locale={locale}>
               <LinkStyled>Home</LinkStyled>
             </Link>
 

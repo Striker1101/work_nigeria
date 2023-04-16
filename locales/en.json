@@ -1,7 +1,0 @@
-{
-  "welcome": "Welcome to my website!",
-  "nigeriaOnlyMessage": "This message is only for Nigerian users.",
-  "jobsDescription": "Jobs description: <DisplayJobs data={data} setIndex={setPostIndex} />",
-  "description": "Description: <DisplayDescription data={data} postIndex={postIndex} />",
-  "jobsDescriptionWithData": "Jobs Description with Data: {{data}} and Set Post Index: {{setPostIndex}}"
-}
