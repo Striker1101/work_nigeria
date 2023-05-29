@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Homepage from "@/comps/Homepage";
 // const inter = Inter({ subsets: ["latin"] });
 
 export function getStaticProps({ locale }: any) {
@@ -29,12 +30,13 @@ export default function Home(props: any) {
         <link rel="icon" href="/favicon.ico" />
         <meta name="keywords" content="jobs in nigeria" />
       </Head>
-      <main>
-        <h1>{locale}</h1>
+      <div>
+        {/* <h1>{locale}</h1>
         <h2>choose your locale</h2>
 
-        <Link href={"/jobs"}>job</Link>
-      </main>
+        <Link href={"/jobs"}>job</Link> */}
+        <Homepage />
+      </div>
     </>
   );
 }

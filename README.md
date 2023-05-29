@@ -13,3 +13,8 @@ Consider mobile optimization: Mobile internet usage is prevalent in Nigeria, so 
 Localize date, time, and currency formats: Nigeria uses the metric system for measurements, the Nigerian Naira (NGN) as its currency, and has its own date and time formats. Make sure to localize these formats on your website to provide a seamless user experience for Nigerian users.
 
 Adhere to Nigerian regulations: Ensure that your website complies with Nigerian laws and regulations, including data privacy and protection, consumer protection, and other relevant regulations.
+
+
+human resource manager 
+administrative assistance
+customer relationship manager 
